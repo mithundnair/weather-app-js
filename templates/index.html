@@ -1,0 +1,171 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
+
+        body{
+            background-image: url("/images/weather.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .title{
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        #container{
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            margin-top: 250px;
+            
+        }
+
+        .box{
+            margin-right: 10px;
+            border-radius: 10px;
+            border-color: white;
+            height: 40px;
+        }
+
+        .btn{
+            border-color: white;
+            border-radius: 10px;
+        }
+
+        #weath{
+            color: white;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        
+    </style>
+
+</head>
+<body>
+
+    <h1 class="title mt-2 text-center">WELCOME</h1>
+    <div id="container">
+        <form method="get" id="form">
+            <input type="text" class="box" id="cityname" placeholder="Enter the name of city">
+            <button class="btn btn-dark" id="bten" type="button" onclick="getweather()">GET</button>
+        </form>
+    </div>
+
+    <div class="row" id="row">
+        
+    </div>
+    
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+
+    document.getElementById('bten').addEventListener("click",getweather);
+
+    function getweather(){
+        const cityname = document.getElementById('cityname')
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname.value}&appid=[YOUR_API_KgitEY]`)
+    .then(response=>response.json())
+    .then(data=>{
+        console.log(data)
+        displayResult(data)
+    })
+
+    .catch(error => {
+            console.error('Error fetching data:', error);
+    });
+    }
+
+    function displayResult(data){
+
+       let resultweath = document.getElementById('row')
+    console.log('THIS IS DATA ',data);
+    
+            resultweath.innerHTML = "";
+
+            if (data.cod !== '404') {
+
+                resultweath.innerHTML+= `
+                    <div class="jumbotron jumbotron-fluid">
+                    <div class="container text-center">
+                    
+                    <h1 class="display-4" id = "weath">${data.name}</h1>
+                    <p class="strong" id = "weath">${data.weather[0].description}</p>
+                    <h5 class="display-4" id = "weath">${data.main.temp}</h5>
+                    </div>
+                    </div>
+                `
+            } else {
+                    resultweath.innerHTML = `<p class = "descr text-center" id = "weath">City Not Found!!</p>`; 
+                    resultweath.style.color = "#ffffff";
+                    resultweath.style.fontSize = "25px";
+                }}
+                    
+
+                // createelement method //
+
+            // const jumbotron = document.createElement('div');
+            //     jumbotron.classList.add('jumbotron', 'jumbotron-fluid');
+            //     // jumbotron.style.backgroundColor = '#f8f9fa';
+            //     jumbotron.style.backgroundImage = "url('/images/result.jpg')";
+            //     jumbotron.style.backgroundSize = "cover";
+            //     jumbotron.style.backgroundRepeat = "no-repeat";
+            //     jumbotron.style.width = "800px";
+                
+
+            //     const container = document.createElement('div');
+            //     container.classList.add('container');
+
+            //     const title = document.createElement('h1');
+            //     title.classList.add('display-4');
+            //     title.textContent = data.name;
+            //     title.style.color = '#ffffff';
+
+            //     const description = document.createElement('p');
+            //     description.classList.add('strong');
+            //     description.textContent = data.weather[0].description;
+            //     description.style.color = '#ffffff';
+
+            //     const temperature = document.createElement('h5');
+            //     temperature.classList.add('display-5');
+            //     temperature.textContent = data.main.temp;
+            //     temperature.style.color = '#ffffff';  
+
+            //     container.appendChild(title);
+            //     container.appendChild(description);
+            //     container.appendChild(temperature);
+            //     jumbotron.appendChild(container);
+
+            //     resultweath.appendChild(jumbotron);
+
+
+
+                // } else {
+                //     resultweath.innerHTML = `<p>City Not Found!!</p>`; 
+                //     resultweath.style.color = "#ffffff";
+                //     resultweath.style.fontSize = "25px";
+                // }}
+    
+
+    // function get(){
+    //     const x = document.getElementById(bten);
+    //     x.addEventListener("click",SubmitEvent)
+    // }
+
+</script>
+</body>
+</html>
