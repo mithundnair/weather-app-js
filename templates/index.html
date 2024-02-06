@@ -78,7 +78,7 @@
     function getweather(){
         const cityname = document.getElementById('cityname')
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname.value}&appid=[YOUR_API_KgitEY]`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname.value}&appid=39f5dc30af375835981ff9ca99091f6d`)
     .then(response=>response.json())
     .then(data=>{
         console.log(data)
